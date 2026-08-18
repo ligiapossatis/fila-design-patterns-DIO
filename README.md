@@ -1,26 +1,29 @@
-# 🏥 Fila de Espera: Notificação Inteligente de Medicamentos
+**Fila de Espera: Notificação de Medicamentos**
 
-Sabe aquele problema clássico de ir até o posto de saúde buscar um remédio e descobrir que ele está em falta? Este projeto nasceu para resolver exatamente essa dor de cabeça, simulando um sistema que coloca os pacientes em uma **Fila de Espera** inteligente.
+A ideia aqui é simples: quando o remédio não tem em estoque, o paciente entra numa fila de espera. Assim que o lote chega, o sistema dispara um aviso por SMS ou e-mail falando "Disponivel pra retirar". Sem drama, sem ficar voltando lá todo dia só pra checar.
 
-Quando o medicamento não tem estoque, o paciente entra na fila. Assim que o lote chega, o sistema dispara uma notificação (por SMS ou E-mail) avisando que ele já pode ir retirar! Simples e direto ao ponto.
 
-## 🧠 Por Trás dos Panos (Onde a Magia Acontece)
-Além de ser uma API REST funcional com Spring Boot, este repositório é também um laboratório de estudos. Durante o desenvolvimento, eu aproveitei para consolidar a aplicação prática de alguns dos **Padrões de Projeto (Design Patterns)** mais usados no mercado:
+Além de ser uma API REST em Spring Boot, esse projeto também faz parte do meu laboratório pra treinar padrões de projeto:
 
-* **Singleton:** Garantido pelo próprio Spring Boot (via `@Service` e `@RestController`), mantendo instâncias únicas dos nossos serviços e economizando memória.
-* **Strategy:** Cada paciente pode preferir ser avisado de um jeito. Usei o Strategy para encapsular as lógicas de envio (`SmsNotificacao` e `EmailNotificacao`), deixando o código pronto para ganhar novas formas de aviso no futuro (alô, WhatsApp!) sem bagunçar tudo.
-* **Facade:** A classe `FilaFacade` faz o "trabalho sujo". Em vez de espalhar lógicas complexas (como salvar no banco, checar estoque e disparar notificação) direto no Controller, o Facade centraliza tudo, deixando a porta de entrada da API limpa e elegante.
+**Singleton** o Spring resolve sozinho. Todos os `@Service` e `@RestController` já nascem como instância única, sem criar objeto à toa e gastar memória.
 
-## 🛠️ Tecnologias Utilizadas
-* **Java 17**
-* **Spring Boot 3** (Web, Data JPA)
-* **Banco de Dados H2** (em memória, pra testar rapidinho sem dor de cabeça)
+**Strategy** cada paciente tem sua preferência de como vai ser avisado. Em vez de inflar o código, separei cada jeito de notificar em uma classe própria (`SmsNotificacao`, `EmailNotificacao`), seguindo a mesma interface.
 
-## 🚀 Como testar localmente?
-1. Clone o repositório.
-2. Abra na sua IDE (IntelliJ, Eclipse, VS Code).
-3. Rode a aplicação a partir da classe `FilaApplication`.
-4. Faça requisições POST para `/api/entrar-fila/{medicamentoId}` informando os dados do paciente e o tipo de notificação escolhida!
+**Facade** em vez do Controller lutar pra salvar no banco, checar estoque e disparar notificação ao mesmo tempo, o Facade vai absorver essa bagunça por dentro e deixa o caminho da entrada da API limpo.
 
----
-*Projeto desenvolvido como forma de unir o útil (um problema real do dia a dia) ao agradável (aprofundar estudos práticos em arquitetura e Design Patterns).*
+
+ **Tecnologias Utilizadas**
+Java 17
+Spring Boot 3 (Web, Data JPA)
+Banco de Dados H2 
+
+
+**Testar localmente**
+1. Clonar o repositório.
+2. Abrir na sua IDE.
+3. Rodar a aplicação `FilaApplication`.
+4. Fazer requisições POST para `/api/entrar-fila/{medicamentoId}` informar os dados do paciente e o tipo de notificação que escolher.
+
+
+-------
+Escolhi desenvolver esse projeto pra unir um problema real, que ja venho tentando aprimorar e aprofundar meu estudo prático em arquitetura e Design Patterns.
